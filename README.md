@@ -1,2 +1,11 @@
 # apm-logger
-common logger service for APM
+Installation
+
+```
+npm install apm-logger
+```
+Usage in application
+
+```
+const logger = require('apm-logger').logger;
+```
