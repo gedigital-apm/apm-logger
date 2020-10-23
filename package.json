@@ -1,0 +1,21 @@
+{
+  "name": "apm-logger",
+  "version": "1.0.0",
+  "description": "Logger for APM products",
+  "main": "logger.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gedigital-apm/apm-logger.git"
+  },
+  "keywords": [
+    "apm-looger",
+    "logger"
+  ],
+  "bugs": {
+    "url": "https://github.com/gedigital-apm/apm-logger/issues"
+  },
+  "homepage": "https://github.com/gedigital-apm/apm-logger#readme"
+}
