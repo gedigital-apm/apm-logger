@@ -64,13 +64,24 @@ class Logger {
 		this.module = module || NOT_AVAILABLE;
 	}
 
+	getCorrId(traceId) {
+	        let xAmznTraceId;
+	        if (traceId) {
+	            const rootIdx = traceId.indexOf('Root');
+	            if (rootIdx != -1) {
+	                xAmznTraceId = traceId.substring(rootIdx + 7, rootIdx + 40).replace('-', '');
+	            }
+	        }
+	        return xAmznTraceId;
+	}
+
 	/**
 	 * set the context for a single request
 	 * @param req - HTTP request obj
 	 */
 	setContext(req) {
 		this.tnt = req && req.headers ? (req.headers.tenant || NOT_AVAILABLE) : NOT_AVAILABLE;
-		this.corr = req && req.headers ? (req.headers['x-b3-traceid'] || NOT_AVAILABLE) : NOT_AVAILABLE;
+		this.corr = req && req.headers ? (this.getCorrId(req.headers['x-amzn-trace-id']) || NOT_AVAILABLE) : NOT_AVAILABLE;
 	}
 	/**
 	 * General logging method
@@ -82,8 +93,7 @@ class Logger {
 		// deal with optional request
 		const level = msg ? levelOrMsg : reqOrLevel;
 		const tnt = msg && reqOrLevel && reqOrLevel.headers ? (reqOrLevel.headers.tenant || NOT_AVAILABLE) : this.tnt;
-		const corr = msg && reqOrLevel && reqOrLevel.headers ?
-			(reqOrLevel.headers['x-b3-traceid'] || NOT_AVAILABLE) : this.corr;
+		const corr = msg && reqOrLevel && reqOrLevel.headers ? (this.getCorrId(reqOrLevel.headers['x-amzn-trace-id']) || NOT_AVAILABLE) : this.corr;
 		const message = msg || levelOrMsg;
 
 		// create obj with required properties
